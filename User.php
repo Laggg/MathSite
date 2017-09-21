@@ -56,7 +56,7 @@ class User {
     	file_put_contents($path, json_encode($contents));
     }
     
-    public static function loadQuestion($path) {
+    public static function loadUser($path) {
     	$array = json_decode(file_get_contents($path));
     	$user = new User($array["name"],$array["dateJoined"],$array["posts"],$array["answers"],$array["id"]);
     	if(getAuthorById($user->id)!==null){
