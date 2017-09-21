@@ -11,8 +11,16 @@ class Answer {
         $this->time = time();
     }
     
-    function setCorrect() {
-        
+    function setCorrect($bool) {
+        $this->correct = $bool;
+    }
+    
+    function getCorrect() {
+    	return $correct;
+    }
+    
+    function getTime() {
+    	return $time;
     }
     
     function getAnswer() {

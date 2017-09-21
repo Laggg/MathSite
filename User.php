@@ -1,6 +1,7 @@
 <?php
 
 class User {
+	private static $filePath = $_SERVER['DOCUMENT_ROOT'] . "/users/";
     private static $users = [];
     private $name;
     private $dateJoined;
@@ -13,13 +14,15 @@ class User {
         $this->dateJoined = time();
         $this->posts = [];
         $this->answers = [];
+        array_push($users, $this);
     }
     
-    public function __construct($name,$dateJoined,$posts,$answers) {
+    public function __construct($name,$dateJoined,$posts,$answers,$id) {
         $this->name = $name;
         $this->dateJoined = $dateJoined;
         $this->posts = $posts;
         $this->answers = $answers;
+        $this->id = $id;
     }
     
     public function postQuestion($question,$answer,$title,$choices,$source) {
@@ -42,6 +45,25 @@ class User {
         }
         return null;
     }
+    
+    public function save() {
+    	$contents = array("name" => $name, 
+    			"dateJoined" => $dateJoined,
+    			"posts" => $posts, 
+    			"answers" => $answers, 
+    			"id" => $id);
+    	$path = $filePath . $this->id . '.json';
+    	file_put_contents($path, json_encode($contents));
+    }
+    
+    public static function loadQuestion($path) {
+    	$array = json_decode(file_get_contents($path));
+    	$user = new User($array["name"],$array["dateJoined"],$array["posts"],$array["answers"],$array["id"]);
+    	if(getAuthorById($user->id)!==null){
+    		array_push($users, $user);
+    	}
+    }
+    
     
 }
 
