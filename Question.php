@@ -26,24 +26,48 @@
             return $author;
         }
         
+        public function setAuthor($author) {
+            $this->author = $author;
+        }
+        
         public function getTitle() {
             return $title;
+        }
+        
+        public function setTitle($title) {
+            $this->title = $title;
         }
         
         public function getQuestion() {
             return $question;
         }
         
+        public function setQuestion($question) {
+            $this->question = $question;
+        }
+        
         public function getAnswer() {
             return $answer;
+        }
+        
+        public function setAnswer($answer) {
+            $this->answer = $answer;
         }
         
         public function getChoices() {
             return $choices;
         }
         
+        public function setChoices($choices) {
+            $this->choices = $choices;
+        }
+        
         public function getSource() {
             return $source;
+        }
+        
+        public function setSource($source) {
+            $this->source = $source;
         }
         
         public function getId() {
@@ -52,6 +76,10 @@
         
         public function getDatePosted() {
             return $datePosted;
+        }
+        
+        public function save() {
+            
         }
         
         public static function getQuestionById($id) {
