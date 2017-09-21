@@ -112,10 +112,9 @@
         }
         
         public function sendAnswer($answer) {
-            if(getAnswer()===$answer) {
-                return true;   
-            }
-            return false;
+            $answer->setCorrect(getAnswer()===$answer);
+            array_push($answers, $answer);
+            return getAnswer()===$answer;
         }
         
         public static function getQuestionById($id) {
