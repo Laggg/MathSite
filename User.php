@@ -15,7 +15,26 @@ class User {
         $this->posts = [];
         $this->answers = [];
         array_push($users, $this);
+        $this->save();
     }
+    
+    public function getName() {
+        
+    }
+    
+    public function setName() {
+        
+    }
+    
+    public function getDateJoined() {
+        
+    }
+    
+    public function getPosts() {
+        
+    }
+    
+    public 
     
     public function __construct($name,$dateJoined,$posts,$answers,$id) {
         $this->name = $name;
@@ -28,12 +47,14 @@ class User {
     public function postQuestion($question,$answer,$title,$choices,$source) {
         $myQuestion = new Question($this->id,$title,$question,$answer,$choices,$source);
         $myQuestion->save();
+        array_push($posts, $myQuestion);
     }
     
     public function sendAnswer($question,$answerText) {
         $answer = new Answer($question->getId(),$answerText);
         $result = $question->sendAnswer($answer);
         array_push($answers, $answer);
+        $this->save();
         return $result;
     }
     
