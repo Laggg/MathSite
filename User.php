@@ -34,7 +34,7 @@ class User {
         
     }
     
-    public 
+     
     
     public function __construct($name,$dateJoined,$posts,$answers,$id) {
         $this->name = $name;

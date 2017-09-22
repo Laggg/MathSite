@@ -2,7 +2,7 @@
     class Question {
         private static $filePath = $_SERVER['DOCUMENT_ROOT'] . "/questions/";
         private static $questions = [];
-        private $authorId;
+        private $author;
         private $title;
         private $question;
         private $answer;
@@ -12,8 +12,8 @@
         private $id;
         private $answers = [];
         
-        private function __construct($authorId,$title,$question,$answer,$choices,$source,$datePosted,$id,$answers) {
-            $this->authorId = $authorId;
+        private function __construct($author,$title,$question,$answer,$choices,$source,$datePosted,$id,$answers) {
+            $this->author = $author;
             $this->title = $title;
             $this->question = $question;
             $this->answer = $answer;
@@ -24,9 +24,9 @@
             $this->answers = $answers;
         }
         
-        public function __construct($authorId,$title,$question,$answer,$choices,$source) {
+        public function __construct($author,$title,$question,$answer,$choices,$source) {
             $datePosted = time();
-            $this->authorId = $authorId;
+            $this->author = $author;
             $this->title = $title;
             $this->question = $question;
             $this->answer = $answer;
@@ -36,12 +36,12 @@
             array_push($questions, $this);
         }
         
-        public function getAuthorId() {
-            return $authorId;
+        public function getAuthor() {
+            return $author;
         }
         
-        public function setAuthor($authorId) {
-            $this->authorId = $authorId;
+        public function setAuthor($author) {
+            $this->author = $author;
         }
         
         public function getTitle() {
@@ -93,7 +93,7 @@
         }
         
         public function save() {
-            $contents = array("authorId" => $authorId, "title" => $title, 
+            $contents = array("author" => $author, "title" => $title, 
                 "question" => $question, "answer" => $answer, "choices" => $choices, 
                 "source" => $source, "datePosted" => $datePosted, 
                 "id" => $id, "answers" => $answers);
@@ -103,7 +103,7 @@
         
         public static function loadQuestion($path) {
             $array = json_decode(file_get_contents($path));
-            $question = new Question($array["authorId"],$array["title"],$array["question"],
+            $question = new Question($array["author"],$array["title"],$array["question"],
                 $array["answer"],$array["choices"],$array["source"],$array["datePosted"],
                 $array["id"],$array["answers"]);
             if(getQuestionById($question->id)===null) {
@@ -126,10 +126,10 @@
             return null;
         }
         
-        public static function getQuestionsByAuthorId($authorId) {
+        public static function getQuestionsByAuthor($author) {
             $array = [];
             foreach($questions as $question) {
-                if($question->getAuthorId()===$authorId) {
+                if($question->getAuthor()===$author) {
                     array_push($array, $question);
                 }
             }
